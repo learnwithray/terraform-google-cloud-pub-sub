@@ -1,46 +1,46 @@
-name: Update Changelog
+# name: Update Changelog
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-permissions:
-  contents: write  # Allows pushing the changelog changes to the repo
+# permissions:
+#   contents: write  # Allows pushing the changelog changes to the repo
 
-jobs:
-  update_changelog:
-    name: Update Changelog
-    runs-on: ubuntu-latest
+# jobs:
+#   update_changelog:
+#     name: Update Changelog
+#     runs-on: ubuntu-latest
 
-    steps:
-      # Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+#     steps:
+#       # Checkout the repository
+#       - name: Checkout code
+#         uses: actions/checkout@v3
 
-      # Set up Node.js (necessary for conventional-changelog)
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+#       # Set up Node.js (necessary for conventional-changelog)
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '18'
 
-      # Install conventional-changelog
-      - name: Install conventional-changelog
-        run: |
-          npm install -g conventional-changelog-cli
+#       # Install conventional-changelog
+#       - name: Install conventional-changelog
+#         run: |
+#           npm install -g conventional-changelog-cli
 
-      # Generate changelog from commit messages
-      - name: Generate Changelog
-        run: |
-          npx conventional-changelog -p angular -i CHANGELOG.md -s
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       # Generate changelog from commit messages
+#       - name: Generate Changelog
+#         run: |
+#           npx conventional-changelog -p angular -i CHANGELOG.md -s
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Configure Git and commit the updated changelog
-      - name: Commit and Push Changelog
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add CHANGELOG.md
-          git commit -m "chore(changelog): update changelog [skip ci]" || echo "No changes to commit"
-          git push origin main
+#       # Configure Git and commit the updated changelog
+#       - name: Commit and Push Changelog
+#         run: |
+#           git config user.name "github-actions[bot]"
+#           git config user.email "github-actions[bot]@users.noreply.github.com"
+#           git add CHANGELOG.md
+#           git commit -m "chore(changelog): update changelog [skip ci]" || echo "No changes to commit"
+#           git push origin main
