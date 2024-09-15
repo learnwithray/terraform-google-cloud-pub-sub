@@ -67,6 +67,5 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_pubsub_subscription"></a> [pubsub\_subscription](#output\_pubsub\_subscription) | The name of the Pub/Sub subscription. |
 | <a name="output_pubsub_topic"></a> [pubsub\_topic](#output\_pubsub\_topic) | The name of the Pub/Sub topic. |
 <!-- END_TF_DOCS -->
