@@ -15,3 +15,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - IAM role binding for publisher and subscriber roles.
 - Added outputs for `pubsub_topic` and `pubsub_subscription`.
 
+## [v1.0.1] - 2024-09-15
+### Added
+- udpate the file for tag
