@@ -15,18 +15,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up GitHub CLI
+      # Install GitHub CLI
       - name: Install GitHub CLI
-        uses: actions/setup-gh-cli@v2
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
 
-      # Determine the next version (You could add logic to check the current version)
+      # Authenticate GitHub CLI
+      - name: Authenticate GitHub CLI
+        run: |
+          echo "${{ secrets.MODULE_TOKEN }}" | gh auth login --with-token
+
+      # Determine the next version from the changelog
       - name: Get version from changelog
         id: changelog
         run: |
           VERSION=$(grep -m 1 -oP '(?<=## \[v)[0-9]+\.[0-9]+\.[0-9]+' CHANGELOG.md)
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
-      # Create a tag and push it
+      # Create a Git tag and push it
       - name: Create Git tag
         run: |
           git tag v${{ env.VERSION }}
