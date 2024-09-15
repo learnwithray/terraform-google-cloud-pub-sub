@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
 permissions:
   contents: write  # This gives write access to push the tag
 
@@ -27,7 +27,7 @@ jobs:
       # Authenticate GitHub CLI
       - name: Authenticate GitHub CLI
         run: |
-          echo "${{ secrets.MODULE_TOKEN }}" | gh auth login --with-token
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       # Determine the next version from the changelog
       - name: Get version from changelog
@@ -39,10 +39,10 @@ jobs:
       # Create a Git tag and push it
       - name: Create Git tag
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag v${{ env.VERSION }}
           git push origin v${{ env.VERSION }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.MODULE_TOKEN }}
 
       # Create a GitHub release
       - name: Create GitHub Release
@@ -53,4 +53,75 @@ jobs:
           body: |
             Release v${{ env.VERSION }} - $(date +"%Y-%m-%d")
         env:
-          GITHUB_TOKEN: ${{ secrets.MODULE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
+
+
+
+
+
+
+# name: Create Release Tag
+
+# on:
+#   push:
+#     branches:
+#       - main
+      
+# permissions:
+#   contents: write  # This gives write access to push the tag
+
+# jobs:
+#   create_release:
+#     name: Create GitHub Release
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       # Checkout the repository
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       # Install GitHub CLI
+#       - name: Install GitHub CLI
+#         run: |
+#           sudo apt-get update
+#           sudo apt-get install -y gh
+
+#       # Authenticate GitHub CLI
+#       - name: Authenticate GitHub CLI MODULE_TOKEN
+#         run: |
+#           echo "${{ secrets.MODULE_TOKEN }}" | gh auth login --with-token
+
+#       # Authenticate GitHub CLI
+#       - name: Authenticate GitHub CLI GITHUB_TOKEN
+#         run: |
+#           echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+#       # Determine the next version from the changelog
+#       - name: Get version from changelog
+#         id: changelog
+#         run: |
+#           VERSION=$(grep -m 1 -oP '(?<=## \[v)[0-9]+\.[0-9]+\.[0-9]+' CHANGELOG.md)
+#           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+#       # Create a Git tag and push it
+#       - name: Create Git tag
+#         run: |
+#           git tag v${{ env.VERSION }}
+#           git push origin v${{ env.VERSION }}
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.MODULE_TOKEN }}
+
+#       # Create a GitHub release
+#       - name: Create GitHub Release
+#         uses: softprops/action-gh-release@v1
+#         with:
+#           tag_name: v${{ env.VERSION }}
+#           name: "v${{ env.VERSION }}"
+#           body: |
+#             Release v${{ env.VERSION }} - $(date +"%Y-%m-%d")
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.MODULE_TOKEN }}
