@@ -35,6 +35,7 @@ resource "google_pubsub_topic_iam_binding" "publisher_binding" {
   members = var.publisher_members
 }
 
+
 # Grant Pub/Sub Subscriber role to a service account
 resource "google_pubsub_subscription_iam_binding" "subscriber_binding" {
   subscription = google_pubsub_subscription.pubsub_subscription.name
