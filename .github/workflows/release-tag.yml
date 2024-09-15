@@ -38,6 +38,8 @@ jobs:
         run: |
           git tag v${{ env.VERSION }}
           git push origin v${{ env.VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.MODULE_TOKEN }}
 
       # Create a GitHub release
       - name: Create GitHub Release
