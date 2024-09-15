@@ -47,5 +47,5 @@ jobs:
           output-file: README.md  # Update the README file with generated docs
           output-method: inject  # Inject the documentation into the README
           git-push: "true"
-        env:
-          GH_TOKEN: ${{ secrets.README_TOKEN }}
+        # env:
+        #   GH_TOKEN: ${{ secrets.README_TOKEN }}

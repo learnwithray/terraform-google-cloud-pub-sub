@@ -41,4 +41,4 @@ jobs:
           body: |
             Release v${{ env.VERSION }} - $(date +"%Y-%m-%d")
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MODULE_TOKEN }}
